@@ -4,11 +4,16 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "build-renderer": "webpack --config ./webpack.config.renderer.dev.js",
+    "build-main": "webpack --config ./webpack.config.main.dev.js",
+    "build-watch-main": "webpack --watch --config ./webpack.config.main.dev.js",
+    "start-electronmon": "electronmon ./dist/main.js",
     "start-renderer": "webpack serve --config ./webpack.config.renderer.dev.js",
-    "start-electron": "electron ./dist/main.js"
+    "start-main": "concurrently -k \"npm:build-watch-main\" \"npm:start-electronmon\"",
+    "start": "npm run start-renderer & concurrently -k \"npm:build-watch-main\" \"npm:start-electronmon\""
   },
   "keywords": [],
-  "author": "",
+  "author": "Michal Pawlowicz",
   "license": "ISC",
   "devDependencies": {
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.8",
@@ -16,8 +21,10 @@
     "@types/react-dom": "^18.0.8",
     "@typescript-eslint/eslint-plugin": "^5.41.0",
     "@typescript-eslint/parser": "^5.41.0",
+    "concurrently": "^7.5.0",
     "css-loader": "^6.7.1",
     "electron": "^21.2.0",
+    "electronmon": "^2.0.2",
     "eslint": "^8.26.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-config-xo": "^0.42.0",
@@ -25,6 +32,7 @@
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react": "^7.31.10",
     "html-webpack-plugin": "^5.5.0",
+    "node-polyfill-webpack-plugin": "^2.0.1",
     "prettier": "^2.7.1",
     "react-refresh-typescript": "^2.0.7",
     "style-loader": "^3.3.1",
@@ -36,5 +44,19 @@
   "dependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
+  },
+  "prettier": {
+    "singleQuote": true,
+    "overrides": [
+      {
+        "files": [
+          ".prettierrc",
+          ".eslintrc"
+        ],
+        "options": {
+          "parser": "json"
+        }
+      }
+    ]
   }
 }

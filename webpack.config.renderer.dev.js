@@ -10,7 +10,7 @@ module.exports = {
   },
   entry: path.resolve(__dirname, "/src/renderer/index.tsx"),
   output: {
-    filename: "[name].[contenthash].js",
+    filename: "index.[contenthash].js",
     clean: true,
     path: path.resolve(__dirname, "dist"),
   },
@@ -20,7 +20,7 @@ module.exports = {
       directory: path.resolve(__dirname, "dist"),
     },
     port: 3000,
-    open: true,
+    // open: true,
     hot: true,
     compress: true,
     historyApiFallback: true,
@@ -28,7 +28,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\ts$/,
+        test: /\.ts$/,
         exclude: /node_modules/,
         use: "ts-loader",
       },
