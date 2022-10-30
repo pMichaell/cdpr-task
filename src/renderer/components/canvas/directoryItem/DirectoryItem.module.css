@@ -1,0 +1,29 @@
+.directoryItem {
+    max-height: 120px;
+    max-width: 100px;
+    width: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: none;
+    background: transparent;
+}
+
+.directoryItem > div {
+    max-width: 80px;
+    max-height: 80px;
+}
+
+.directoryItem img {
+    height: 80px;
+    width: 80px;
+}
+
+.directoryItem strong {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: 100%;
+    display: block;
+    overflow: hidden
+}

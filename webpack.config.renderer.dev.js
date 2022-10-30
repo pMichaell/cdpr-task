@@ -7,6 +7,10 @@ module.exports = {
   mode: 'development',
   resolve: {
     extensions: ['.tsx', '.ts', '.js'],
+    alias: {
+      '@': path.join(__dirname, 'src'),
+      assets: path.join(__dirname, 'assets'),
+    },
   },
   entry: path.resolve(__dirname, '/src/renderer/index.tsx'),
   output: {
@@ -51,6 +55,17 @@ module.exports = {
       {
         test: /\.css$/i,
         use: ['style-loader', 'css-loader'],
+      },
+      {
+        test: /\.(png|jp(e*)g|svg|gif)$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: 'images/[hash]-[name].[ext]',
+            },
+          },
+        ],
       },
     ],
   },

@@ -13,4 +13,4 @@ declare global {
   }
 }
 
-export type DirContent = { name: string; type: 'dir' | 'file' };
+export type DirectoryItemType = { name: string; type: 'dir' | 'file' };

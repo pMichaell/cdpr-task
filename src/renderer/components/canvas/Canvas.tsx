@@ -1,11 +1,13 @@
 import classes from './Canvas.module.css';
 import { useEffect } from 'react';
 import useIpc from '../../hooks/useIpc';
-import type { DirContent } from '../../../globals';
+import type { DirectoryItemType } from '../../../globals';
+import DirectoryItem from './directoryItem/DirectoryItem';
 
 const Canvas = () => {
   const [getCurrentPath, currentPath] = useIpc<string>('paths');
-  const [getDirContents, dirContents] = useIpc<DirContent[]>('path-contents');
+  const [getDirContents, dirContents] =
+    useIpc<DirectoryItemType[]>('path-contents');
 
   useEffect(() => {
     getCurrentPath([]);
@@ -24,9 +26,7 @@ const Canvas = () => {
   return (
     <div className={classes.canvas}>
       {dirContents?.map((el) => (
-        <p key={el.type + el.name}>
-          <small>{el.type}</small> {el.name}
-        </p>
+        <DirectoryItem name={el.name} type={el.type} />
       ))}
     </div>
   );

@@ -2,7 +2,7 @@ import { app, BrowserWindow, ipcMain } from 'electron';
 import * as path from 'path';
 import * as os from 'os';
 import { readdir, stat } from 'node:fs/promises';
-import { DirContent } from '../globals';
+import { DirectoryItemType } from '../globals';
 
 function createWindow() {
   // Create the browser window.
@@ -49,7 +49,7 @@ ipcMain.on('path-contents', async (event, args: string[]) => {
   }
 
   console.log('received path ' + receivedPath);
-  const contents: DirContent[] = [];
+  const contents: DirectoryItemType[] = [];
 
   try {
     const files = await readdir(receivedPath);
