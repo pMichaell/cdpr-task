@@ -1,22 +1,25 @@
-const path = require("path");
+const path = require('path');
 module.exports = {
-  mode: "development",
-  target: "electron-main",
+  mode: 'development',
+  target: 'electron-main',
   resolve: {
-    extensions: ["ts"],
+    extensions: ['ts'],
   },
-  entry: path.resolve(__dirname, "/src/main/main.ts"),
+  entry: {
+    main: path.resolve(__dirname, '/src/main/main.ts'),
+    preload: path.resolve(__dirname, '/src/main/preload.ts'),
+  },
   output: {
-    filename: "main.js",
-    clean: true,
-    path: path.resolve(__dirname, "dist"),
+    path: path.resolve(__dirname, 'dist'),
+    filename: '[name].js',
   },
+  devtool: 'source-map',
   module: {
     rules: [
       {
         test: /\.ts$/,
         exclude: /node_modules/,
-        use: "ts-loader",
+        use: 'ts-loader',
       },
     ],
   },

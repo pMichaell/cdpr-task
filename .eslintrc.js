@@ -4,21 +4,25 @@ module.exports = {
     es2021: true,
     node: true,
   },
-  extends: ["plugin:react/recommended", "xo", "prettier"],
+  extends: ['plugin:react/recommended', 'xo', 'prettier'],
   overrides: [
     {
-      extends: ["xo-typescript", "prettier"],
-      files: ["*.ts", "*.tsx"],
+      extends: ['xo-typescript', 'prettier'],
+      files: ['*.ts', '*.tsx'],
+      rules: {
+        '@typescript-eslint/no-unsafe-assignment': 'off',
+        '@typescript-eslint/no-floating-promises': 'off',
+      },
     },
   ],
   parserOptions: {
-    ecmaVersion: "latest",
-    sourceType: "module",
+    ecmaVersion: 'latest',
+    sourceType: 'module',
   },
-  plugins: ["prettier", "react"],
+  plugins: ['prettier', 'react'],
   rules: {
-    "prettier/prettier": "error",
-    "react/react-in-jsx-scope": "off",
-    "arrow-body-style": "off",
+    'prettier/prettier': 'error',
+    'react/react-in-jsx-scope': 'off',
+    'arrow-body-style': 'off',
   },
 };

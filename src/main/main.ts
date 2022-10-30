@@ -1,20 +1,27 @@
-import { app, BrowserWindow } from "electron";
+import { app, BrowserWindow, ipcMain } from 'electron';
+import * as path from 'path';
 
 function createWindow() {
   // Create the browser window.
-  const win = new BrowserWindow({
-    width: 800,
-    height: 600,
+  const mainWindow = new BrowserWindow({
     webPreferences: {
-      nodeIntegration: true,
+      preload: path.join(__dirname, 'preload.js'),
     },
+    // Icon: path.resolve(__dirname + '/../assets/cdpr.webp'),
+    // frame: false,
   });
 
+  mainWindow.maximize();
+  // MainWindow.setMenu(null);
+  // mainWindow.setTitle('cdpr-task');
   // Load the index.html from an url
-  win.loadURL("http://localhost:3000");
-
+  mainWindow.loadURL('http://localhost:3000');
   // Open the DevTools.
-  win.webContents.openDevTools();
+  // win.webContents.openDevTools();
+
+  mainWindow.on('ready-to-show', () => {
+    mainWindow.show();
+  });
 }
 
 // This method will be called when Electron has finished
@@ -22,16 +29,23 @@ function createWindow() {
 // Some APIs can only be used after this event occurs.
 app.whenReady().then(createWindow);
 
+ipcMain.on('file-system', async (event, args: string[]) => {
+  console.log(args);
+  event.reply('file-system', 'received');
+});
+
+// console.log(path.resolve(__dirname + '/../assets/cdpr.ico'));
+
 // Quit when all windows are closed, except on macOS. There, it's common
 // for applications and their menu bar to stay active until the user quits
 // explicitly with Cmd + Q.
-app.on("window-all-closed", () => {
-  if (process.platform !== "darwin") {
+app.on('window-all-closed', () => {
+  if (process.platform !== 'darwin') {
     app.quit();
   }
 });
 
-app.on("activate", () => {
+app.on('activate', () => {
   // On macOS it's common to re-create a window in the app when the
   // dock icon is clicked and there are no other windows open.
 
