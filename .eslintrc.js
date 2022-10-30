@@ -9,6 +9,10 @@ module.exports = {
     {
       extends: ['xo-typescript', 'prettier'],
       files: ['*.ts', '*.tsx'],
+      rules: {
+        '@typescript-eslint/no-unsafe-assignment': 'off',
+        '@typescript-eslint/no-floating-promises': 'off',
+      },
     },
   ],
   parserOptions: {
@@ -20,6 +24,5 @@ module.exports = {
     'prettier/prettier': 'error',
     'react/react-in-jsx-scope': 'off',
     'arrow-body-style': 'off',
-    '@typescript/eslint/no-floating-promises': 'off',
   },
 };

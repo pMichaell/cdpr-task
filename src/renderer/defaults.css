@@ -5,10 +5,16 @@
  --light-gray: rgb(153, 153, 153);
 }
 
+@font-face {
+    font-family: 'Roboto';
+    src: url("../../assets/Roboto.ttf") format("truetype");
+}
+
 *,
 *::before,
 *::after {
     box-sizing: border-box;
+    font-family: Roboto, serif;
 }
 
 /* Remove default margin */
