@@ -1,0 +1,17 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-inline: 16px;
+    background-color: var(--dark-gray);
+    color: white;
+}
+
+.headerList {
+    height: 100%;
+    display: flex;
+    gap: 12px;
+    justify-content: space-around;
+    align-items: center;
+    font-size: 1.2rem;
+}

@@ -1,4 +1,5 @@
-import { contextBridge, ipcRenderer, IpcRendererEvent } from 'electron';
+import type { IpcRendererEvent } from 'electron';
+import { contextBridge, ipcRenderer } from 'electron';
 
 export type Channels = 'file-system';
 
@@ -7,8 +8,10 @@ contextBridge.exposeInMainWorld('api', {
     ipcRenderer.send(channel, args);
   },
   on(channel: Channels, func: (...args: string[]) => void) {
-    const subscription = (_event: IpcRendererEvent, ...args: string[]) =>
+    const subscription = (_event: IpcRendererEvent, ...args: string[]) => {
       func(...args);
+    };
+
     ipcRenderer.on(channel, subscription);
 
     return () => {
@@ -16,6 +19,8 @@ contextBridge.exposeInMainWorld('api', {
     };
   },
   once(channel: Channels, func: (...args: string[]) => void) {
-    ipcRenderer.once(channel, (_event, ...args) => func(...args));
+    ipcRenderer.once(channel, (_event, ...args) => {
+      func(...args);
+    });
   },
 });
