@@ -1,0 +1,20 @@
+#root {
+    display: grid;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-inline: 16px;
+    background: var(--dark-gray);
+    color: white;
+}
+
+.list {
+    height: 100%;
+    display: flex;
+    gap: 12px;
+    justify-content: space-around;
+    align-items: center;
+}

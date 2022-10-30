@@ -20,5 +20,6 @@ module.exports = {
     'prettier/prettier': 'error',
     'react/react-in-jsx-scope': 'off',
     'arrow-body-style': 'off',
+    '@typescript/eslint/no-floating-promises': 'off',
   },
 };

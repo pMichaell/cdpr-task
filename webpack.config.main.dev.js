@@ -5,12 +5,15 @@ module.exports = {
   resolve: {
     extensions: ['ts'],
   },
-  entry: path.resolve(__dirname, '/src/main/main.ts'),
-  output: {
-    filename: 'main.js',
-    clean: true,
-    path: path.resolve(__dirname, 'dist'),
+  entry: {
+    main: path.resolve(__dirname, '/src/main/main.ts'),
+    preload: path.resolve(__dirname, '/src/main/preload.ts'),
   },
+  output: {
+    path: path.resolve(__dirname, 'dist'),
+    filename: '[name].js',
+  },
+  devtool: 'source-map',
   module: {
     rules: [
       {
