@@ -1,26 +1,26 @@
-const path = require("path");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const ReactRefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin");
-const ReactRefreshTypeScript = require("react-refresh-typescript");
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
+const ReactRefreshTypeScript = require('react-refresh-typescript');
 
 module.exports = {
-  mode: "development",
+  mode: 'development',
   resolve: {
-    extensions: [".tsx", ".ts", ".js"],
+    extensions: ['.tsx', '.ts', '.js'],
   },
-  entry: path.resolve(__dirname, "/src/renderer/index.tsx"),
+  entry: path.resolve(__dirname, '/src/renderer/index.tsx'),
   output: {
-    filename: "index.[contenthash].js",
+    filename: 'index.[contenthash].js',
     clean: true,
-    path: path.resolve(__dirname, "dist"),
+    path: path.resolve(__dirname, 'dist'),
   },
-  devtool: "source-map",
+  devtool: 'source-map',
   devServer: {
     static: {
-      directory: path.resolve(__dirname, "dist"),
+      directory: path.resolve(__dirname, 'dist'),
     },
     port: 3000,
-    // open: true,
+    // Open: true,
     hot: true,
     compress: true,
     historyApiFallback: true,
@@ -30,14 +30,14 @@ module.exports = {
       {
         test: /\.ts$/,
         exclude: /node_modules/,
-        use: "ts-loader",
+        use: 'ts-loader',
       },
       {
         test: /\.[jt]sx$/,
         exclude: /node_modules/,
         use: [
           {
-            loader: require.resolve("ts-loader"),
+            loader: require.resolve('ts-loader'),
             options: {
               getCustomTransformers: () => ({
                 // eslint-disable-next-line new-cap
@@ -50,15 +50,15 @@ module.exports = {
       },
       {
         test: /\.css$/i,
-        use: ["style-loader", "css-loader"],
+        use: ['style-loader', 'css-loader'],
       },
     ],
   },
   plugins: [
     new HtmlWebpackPlugin({
-      title: "Typescript React App",
-      filename: "index.html",
-      template: "src/renderer/index.html",
+      title: 'Typescript React App',
+      filename: 'index.html',
+      template: 'src/renderer/index.html',
     }),
     new ReactRefreshWebpackPlugin(),
   ],

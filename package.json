@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "lint": "eslint --fix --ext .js,.tsx,.ts .",
     "build-renderer": "webpack --config ./webpack.config.renderer.dev.js",
     "build-main": "webpack --config ./webpack.config.main.dev.js",
     "build-watch-main": "webpack --watch --config ./webpack.config.main.dev.js",
