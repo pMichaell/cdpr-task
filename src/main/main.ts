@@ -2,7 +2,7 @@ import { app, BrowserWindow, ipcMain } from 'electron';
 import * as path from 'path';
 import * as os from 'os';
 import { readdir, stat } from 'node:fs/promises';
-import { DirectoryItemType } from '../globals';
+import type { DirectoryItemType } from '../globals';
 
 function createWindow() {
   // Create the browser window.
@@ -34,8 +34,21 @@ app.whenReady().then(createWindow);
 
 ipcMain.on('paths', async (event, args: string[]) => {
   if (args.length === 0) {
-    event.reply('paths', os.homedir());
+    return;
   }
+
+  const pathSegment = args[0];
+
+  console.log(pathSegment);
+
+  if (pathSegment.toLowerCase() === 'home') {
+    event.reply('paths', os.homedir());
+    return;
+  }
+
+  const newPath = path.join(os.homedir(), pathSegment);
+
+  event.reply('paths', newPath);
 });
 
 ipcMain.on('path-contents', async (event, args: string[]) => {
@@ -48,7 +61,6 @@ ipcMain.on('path-contents', async (event, args: string[]) => {
     return;
   }
 
-  console.log('received path ' + receivedPath);
   const contents: DirectoryItemType[] = [];
 
   try {

@@ -1,17 +1,14 @@
 import classes from './Canvas.module.css';
-import { useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 import useIpc from '../../hooks/useIpc';
 import type { DirectoryItemType } from '../../../globals';
 import DirectoryItem from './directoryItem/DirectoryItem';
+import { PathContext } from '../../context/PathContext';
 
 const Canvas = () => {
-  const [getCurrentPath, currentPath] = useIpc<string>('paths');
-  const [getDirContents, dirContents] =
+  const { currentPath } = useContext(PathContext);
+  const [dirContents, getDirContents] =
     useIpc<DirectoryItemType[]>('path-contents');
-
-  useEffect(() => {
-    getCurrentPath([]);
-  }, []);
 
   useEffect(() => {
     if (currentPath) {
@@ -20,7 +17,7 @@ const Canvas = () => {
   }, [currentPath]);
 
   useEffect(() => {
-    console.log(dirContents);
+    // Console.log(dirContents);
   }, [dirContents]);
 
   return (
