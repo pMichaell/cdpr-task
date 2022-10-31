@@ -1,24 +1,17 @@
 import classes from './Canvas.module.css';
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 import useIpc from '../../hooks/useIpc';
-import type { DirectoryItemType } from '../../../globals';
 import { PathContext } from '../../context/PathContext';
 import { useNavigate } from 'react-router-dom';
 import File from './directoryContent/File';
 import Directory from './directoryContent/Directory';
+import useDirContents from '../../hooks/useDirContents';
 
 const Canvas = () => {
   const { currentPath } = useContext(PathContext);
-  const [dirContents, getDirContents] =
-    useIpc<DirectoryItemType[]>('path-contents');
+  const dirContents = useDirContents(currentPath ?? 'homedir');
   const [, openFile] = useIpc('file-handle');
   const navigate = useNavigate();
-
-  useEffect(() => {
-    if (currentPath) {
-      getDirContents(currentPath);
-    }
-  }, [currentPath]);
 
   const onDirectoryClick = (directoryName: string) => {
     if (currentPath) {
@@ -27,7 +20,6 @@ const Canvas = () => {
   };
 
   const onFileClick = (fileName: string) => {
-    console.log(fileName);
     const pathToFile = currentPath?.concat('/', fileName);
     if (pathToFile) {
       openFile(pathToFile);
