@@ -3,7 +3,7 @@ module.exports = {
   mode: 'development',
   target: 'electron-main',
   resolve: {
-    extensions: ['ts'],
+    extensions: ['.ts'],
   },
   entry: {
     main: path.resolve(__dirname, '/src/main/main.ts'),
@@ -12,6 +12,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: '[name].js',
+    clean: true,
   },
   devtool: 'source-map',
   module: {
