@@ -17,6 +17,10 @@
     "resolveJsonModule": true,
     "allowJs": true,
     "outDir": ".erb/dll",
-    "plugins": [{ "name": "typescript-plugin-css-modules" }]
-  }
+    "plugins": [{ "name": "typescript-plugin-css-modules" }],
+    "paths": {
+      "assets/*": ["assets/*"],
+      "@/*": ["src/*"]
+    }
+  },
 }

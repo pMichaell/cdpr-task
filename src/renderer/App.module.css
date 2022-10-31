@@ -1,45 +1,8 @@
-.header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-inline: 16px;
-    background-color: var(--dark-gray);
-    color: white;
-}
-
-.headerList {
-    height: 100%;
-    display: flex;
-    gap: 12px;
-    justify-content: space-around;
-    align-items: center;
-    font-size: 1.2rem;
-}
 
 .main {
     display: flex;
     height: 100%;
 }
 
-.aside {
-    background-color: var(--light-gray);
-    width: clamp(100px, 25%, 250px);
-    padding-top: 24px;
-    padding-left: 24px;
-    font-size: 1.3rem;
-}
 
-.asideList {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
 
-.canvas {
-    flex: 1;
-    background-color: var(--medium-gray);
-    padding: 16px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-}

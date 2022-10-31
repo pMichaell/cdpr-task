@@ -12,6 +12,7 @@ module.exports = {
       rules: {
         '@typescript-eslint/no-unsafe-assignment': 'off',
         '@typescript-eslint/no-floating-promises': 'off',
+        '@typescript-eslint/no-confusing-void-expression': 'off',
       },
     },
   ],

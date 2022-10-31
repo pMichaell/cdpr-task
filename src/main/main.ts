@@ -1,5 +1,8 @@
 import { app, BrowserWindow, ipcMain } from 'electron';
 import * as path from 'path';
+import * as os from 'os';
+import { readdir, stat } from 'node:fs/promises';
+import type { DirectoryItemType } from '../globals';
 
 function createWindow() {
   // Create the browser window.
@@ -29,12 +32,58 @@ function createWindow() {
 // Some APIs can only be used after this event occurs.
 app.whenReady().then(createWindow);
 
+ipcMain.on('paths', async (event, args: string[]) => {
+  if (args.length === 0) {
+    return;
+  }
+
+  const pathSegment = args[0];
+
+  console.log(pathSegment);
+
+  if (pathSegment.toLowerCase() === 'home') {
+    event.reply('paths', os.homedir());
+    return;
+  }
+
+  const newPath = path.join(os.homedir(), pathSegment);
+
+  event.reply('paths', newPath);
+});
+
+ipcMain.on('path-contents', async (event, args: string[]) => {
+  if (args.length === 0) {
+    return;
+  }
+
+  const receivedPath = args[0];
+  if (receivedPath === '') {
+    return;
+  }
+
+  const contents: DirectoryItemType[] = [];
+
+  try {
+    const files = await readdir(receivedPath);
+    for (const file of files) {
+      const stats = await stat(path.join(receivedPath, file));
+      contents.push({ name: file, type: stats.isFile() ? 'file' : 'dir' });
+    }
+  } catch (err) {
+    console.error(err);
+  }
+
+  console.log(contents);
+
+  event.reply('path-contents', contents);
+});
+
 ipcMain.on('file-system', async (event, args: string[]) => {
   console.log(args);
   event.reply('file-system', 'received');
 });
 
-// console.log(path.resolve(__dirname + '/../assets/cdpr.ico'));
+// Console.log(path.resolve(__dirname + '/../assets/cdpr.ico'));
 
 // Quit when all windows are closed, except on macOS. There, it's common
 // for applications and their menu bar to stay active until the user quits

@@ -1,0 +1,17 @@
+.aside {
+    background-color: var(--light-gray);
+    width: clamp(100px, 25%, 250px);
+    padding-top: 24px;
+    padding-left: 24px;
+    font-size: 1.3rem;
+}
+
+.asideList {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.active {
+    color: palevioletred;
+}
