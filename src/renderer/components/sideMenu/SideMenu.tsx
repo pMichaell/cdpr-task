@@ -22,7 +22,10 @@ const SideMenu = () => {
         <li>
           <button
             onClick={() => onClick('Desktop')}
-            className={clsx(isActive('Desktop') && classes.active)}
+            className={clsx(
+              classes.sideMenuButton,
+              isActive('Desktop') && classes.active
+            )}
           >
             Desktop
           </button>
@@ -30,7 +33,10 @@ const SideMenu = () => {
         <li>
           <button
             onClick={() => onClick('Downloads')}
-            className={clsx(isActive('Downloads') && classes.active)}
+            className={clsx(
+              classes.sideMenuButton,
+              isActive('Downloads') && classes.active
+            )}
           >
             Downloads
           </button>
@@ -38,7 +44,10 @@ const SideMenu = () => {
         <li>
           <button
             onClick={() => onClick('Documents')}
-            className={clsx(isActive('Documents') && classes.active)}
+            className={clsx(
+              classes.sideMenuButton,
+              isActive('Documents') && classes.active
+            )}
           >
             Documents
           </button>

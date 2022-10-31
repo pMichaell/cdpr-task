@@ -13,5 +13,20 @@
 }
 
 .active {
-    color: palevioletred;
+    color: white;
+}
+
+.sideMenuButton {
+    background: var(--light-gray);
+    outline: none;
+    border: none;
+    transition: all .1s ease-in-out;
+}
+
+.sideMenuButton:focus-visible, .sideMenuButton:hover {
+    transform: scale(1.05);
+}
+
+.sideMenuButton:active {
+    transform: scale(0.9);
 }

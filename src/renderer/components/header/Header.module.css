@@ -15,3 +15,20 @@
     align-items: center;
     font-size: 1.2rem;
 }
+
+.headerButton {
+    background: var(--light-gray);
+    color: white;
+    outline: none;
+    border: none;
+    transition: all .1s ease-in-out;
+}
+
+.headerButton:focus-visible, .headerButton:hover {
+    outline: 2px solid white;
+    transform: scale(1.05);
+}
+
+.headerButton:active {
+    transform: scale(0.9);
+}

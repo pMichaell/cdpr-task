@@ -4,22 +4,17 @@ import * as os from 'os';
 import { retrieveDirectoryContents } from './handlers';
 
 function createWindow() {
-  // Create the browser window.
   const mainWindow = new BrowserWindow({
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
     },
-    // Icon: path.resolve(__dirname + '/../assets/cdpr.webp'),
-    // frame: false,
+    frame: false,
   });
 
   mainWindow.maximize();
-  // MainWindow.setMenu(null);
-  // mainWindow.setTitle('cdpr-task');
-  // Load the index.html from an url
+
+  // TODO add loading from html file in prod
   mainWindow.loadURL('http://localhost:3000');
-  // Open the DevTools.
-  // win.webContents.openDevTools();
 
   mainWindow.on('ready-to-show', () => {
     mainWindow.show();
@@ -61,18 +56,35 @@ ipcMain.on('directory-contents', async (event, args: string[]) => {
 
   if (receivedPath === 'homedir') {
     const homedirContents = await retrieveDirectoryContents(os.homedir());
-    console.log(homedirContents);
     event.reply('directory-contents', homedirContents);
     return;
   }
 
   const contents = await retrieveDirectoryContents(receivedPath);
-
   event.reply('directory-contents', contents);
 });
 
 ipcMain.on('file-handle', async (event, args: string[]) => {
   await shell.openPath(args[0]);
+});
+
+export type FrameEvent = 'close' | 'minimize' | 'maximize';
+
+ipcMain.on('frame-events', async (event, args: FrameEvent[]) => {
+  const mainWindow = BrowserWindow.getAllWindows()[0];
+  const eventMessage = args[0];
+
+  if (eventMessage === 'close') {
+    app.quit();
+  }
+
+  if (eventMessage === 'maximize') {
+    mainWindow.maximize();
+  }
+
+  if (eventMessage === 'minimize') {
+    mainWindow.minimize();
+  }
 });
 
 // Console.log(path.resolve(__dirname + '/../assets/cdpr.ico'));
