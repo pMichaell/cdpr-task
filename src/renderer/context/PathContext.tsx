@@ -18,19 +18,17 @@ const PathContextProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     // Set Path to homedir on startup
-    navigate('Home');
+    navigate('/home');
   }, []);
 
   useEffect(() => {
-    if (location.pathname !== '/Home') {
+    if (location.pathname !== '/home') {
       changePath(location.pathname);
       return;
     }
 
-    changePath('Home');
+    changePath('homedir');
   }, [location]);
-
-  // TODO fix this below
 
   return (
     <PathContext.Provider value={{ currentPath }}>

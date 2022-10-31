@@ -1,4 +1,4 @@
-import { app, BrowserWindow, ipcMain } from 'electron';
+import { app, BrowserWindow, ipcMain, shell } from 'electron';
 import * as path from 'path';
 import * as os from 'os';
 import { readdir, stat } from 'node:fs/promises';
@@ -37,16 +37,18 @@ ipcMain.on('paths', async (event, args: string[]) => {
     return;
   }
 
-  const pathSegment = args[0];
+  const firstPathSegment = args[0];
 
-  console.log(pathSegment);
-
-  if (pathSegment.toLowerCase() === 'home') {
+  if (firstPathSegment.toLowerCase() === 'homedir') {
     event.reply('paths', os.homedir());
     return;
   }
 
-  const newPath = path.join(os.homedir(), pathSegment);
+  let newPath = firstPathSegment;
+
+  if (!newPath.includes(os.homedir())) {
+    newPath = path.join(os.homedir(), newPath);
+  }
 
   event.reply('paths', newPath);
 });
@@ -78,9 +80,8 @@ ipcMain.on('path-contents', async (event, args: string[]) => {
   event.reply('path-contents', contents);
 });
 
-ipcMain.on('file-system', async (event, args: string[]) => {
-  console.log(args);
-  event.reply('file-system', 'received');
+ipcMain.on('file-handle', async (event, args: string[]) => {
+  await shell.openPath(args[0]);
 });
 
 // Console.log(path.resolve(__dirname + '/../assets/cdpr.ico'));
