@@ -53,31 +53,51 @@ ipcMain.on('paths', async (event, args: string[]) => {
   event.reply('paths', newPath);
 });
 
-ipcMain.on('path-contents', async (event, args: string[]) => {
+const getFileInfo = async (
+  receivedPath: string,
+  fileName: string
+): Promise<DirectoryItemType> => {
+  const stats = await stat(path.join(receivedPath, fileName));
+  return { name: fileName, type: stats.isFile() ? 'file' : 'dir' };
+};
+
+const retrieveDirectoryContents = async (receivedPath: string) => {
+  let contents: DirectoryItemType[] = [];
+
+  try {
+    const files = await readdir(receivedPath);
+
+    const promises: Array<Promise<DirectoryItemType>> = [];
+
+    for (const fileName of files) {
+      promises.push(getFileInfo(receivedPath, fileName));
+    }
+
+    contents = await Promise.all(promises);
+  } catch (err) {
+    console.error(err);
+  }
+
+  return contents;
+};
+
+ipcMain.on('directory-contents', async (event, args: string[]) => {
   if (args.length === 0) {
     return;
   }
 
   const receivedPath = args[0];
-  if (receivedPath === '') {
+
+  if (receivedPath === 'homedir') {
+    const homedirContents = await retrieveDirectoryContents(os.homedir());
+    console.log(homedirContents);
+    event.reply('directory-contents', homedirContents);
     return;
   }
 
-  const contents: DirectoryItemType[] = [];
+  const contents = await retrieveDirectoryContents(receivedPath);
 
-  try {
-    const files = await readdir(receivedPath);
-    for (const file of files) {
-      const stats = await stat(path.join(receivedPath, file));
-      contents.push({ name: file, type: stats.isFile() ? 'file' : 'dir' });
-    }
-  } catch (err) {
-    console.error(err);
-  }
-
-  console.log(contents);
-
-  event.reply('path-contents', contents);
+  event.reply('directory-contents', contents);
 });
 
 ipcMain.on('file-handle', async (event, args: string[]) => {
