@@ -6,8 +6,8 @@ module.exports = {
     extensions: ['.ts'],
   },
   entry: {
-    main: path.resolve(__dirname, '/src/main/main.ts'),
-    preload: path.resolve(__dirname, '/src/main/preload.ts'),
+    main: path.resolve(__dirname, 'src', 'main', 'main.ts'),
+    preload: path.resolve(__dirname, 'src', 'main', 'preload.ts'),
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
