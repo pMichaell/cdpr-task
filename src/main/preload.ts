@@ -1,7 +1,11 @@
 import type { IpcRendererEvent } from 'electron';
 import { contextBridge, ipcRenderer } from 'electron';
 
-export type Channels = 'file-handle' | 'paths' | 'directory-contents';
+export type Channels =
+  | 'file-handle'
+  | 'paths'
+  | 'directory-contents'
+  | 'frame-events';
 
 contextBridge.exposeInMainWorld('api', {
   sendMessage(channel: Channels, args: string[]) {

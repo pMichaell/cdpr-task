@@ -11,17 +11,17 @@
     background: transparent;
 }
 
-.directoryItem > div {
+.imgContainer {
     max-width: 80px;
     max-height: 80px;
 }
 
-.directoryItem img {
+.img {
     height: 80px;
     width: 80px;
 }
 
-.directoryItem strong {
+.name {
     white-space: nowrap;
     text-overflow: ellipsis;
     width: 100%;

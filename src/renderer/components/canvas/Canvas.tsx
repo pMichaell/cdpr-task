@@ -3,9 +3,9 @@ import { useContext } from 'react';
 import useIpc from '../../hooks/useIpc';
 import { PathContext } from '../../context/PathContext';
 import { useNavigate } from 'react-router-dom';
-import File from './directoryContent/File';
-import Directory from './directoryContent/Directory';
 import useDirContents from '../../hooks/useDirContents';
+import type { DirectoryItemType } from '../../../globals';
+import DirectoryItem from './directoryContent/DirectoryItem';
 
 const Canvas = () => {
   const { currentPath } = useContext(PathContext);
@@ -26,27 +26,27 @@ const Canvas = () => {
     }
   };
 
+  const onItemDoubleClick = (
+    itemName: string,
+    type: DirectoryItemType['type']
+  ) => {
+    if (type === 'file') {
+      onFileClick(itemName);
+    } else {
+      onDirectoryClick(itemName);
+    }
+  };
+
   return (
     <div className={classes.canvas}>
-      {dirContents?.map((el) => {
-        if (el.type === 'file') {
-          return (
-            <File
-              key={el.name}
-              name={el.name}
-              onDoubleClick={() => onFileClick(el.name)}
-            />
-          );
-        }
-
-        return (
-          <Directory
-            key={el.name}
-            name={el.name}
-            onClick={() => onDirectoryClick(el.name)}
-          />
-        );
-      })}
+      {dirContents?.map((item) => (
+        <DirectoryItem
+          key={`${item.name}+${item.type}`}
+          name={item.name}
+          type={item.type}
+          onDoubleClick={() => onItemDoubleClick(item.name, item.type)}
+        />
+      ))}
     </div>
   );
 };
