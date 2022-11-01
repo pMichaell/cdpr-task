@@ -31,14 +31,17 @@ ipcMain.on('paths', async (event, args: string[]) => {
     return;
   }
 
-  const firstPathSegment = args[0];
+  let newPath = args[0];
 
-  if (firstPathSegment.toLowerCase() === 'homedir') {
+  if (newPath.toLowerCase() === 'homedir') {
     event.reply('paths', os.homedir());
     return;
   }
 
-  let newPath = firstPathSegment;
+  if (process.platform === 'win32' || process.platform === 'darwin') {
+    // Remove leading '/' for non-unix
+    newPath = newPath.slice(1);
+  }
 
   if (!newPath.includes(os.homedir())) {
     newPath = path.join(os.homedir(), newPath);
@@ -61,11 +64,12 @@ ipcMain.on('directory-contents', async (event, args: string[]) => {
   }
 
   const contents = await retrieveDirectoryContents(receivedPath);
+
   event.reply('directory-contents', contents);
 });
 
-ipcMain.on('file-handle', async (event, args: string[]) => {
-  await shell.openPath(args[0]);
+ipcMain.on('file-handle', async (_, args: string[]) => {
+  await shell.openPath(path.join(...args));
 });
 
 export type FrameEvent = 'close' | 'minimize' | 'maximize';

@@ -11,7 +11,7 @@ module.exports = {
       assets: path.join(__dirname, 'assets'),
     },
   },
-  entry: path.resolve(__dirname, '/src/renderer/index.tsx'),
+  entry: path.resolve(__dirname, 'src', 'renderer', 'index.tsx'),
   output: {
     filename: 'index.[contenthash].js',
     clean: true,

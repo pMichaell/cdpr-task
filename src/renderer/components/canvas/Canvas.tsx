@@ -20,9 +20,8 @@ const Canvas = () => {
   };
 
   const onFileClick = (fileName: string) => {
-    const pathToFile = currentPath?.concat('/', fileName);
-    if (pathToFile) {
-      openFile(pathToFile);
+    if (currentPath) {
+      openFile([currentPath, fileName]);
     }
   };
 
