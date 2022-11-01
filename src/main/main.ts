@@ -11,10 +11,14 @@ function createWindow() {
     frame: false,
   });
 
-  mainWindow.maximize();
+  if (process.env.NODE_ENV === 'production') {
+    const pathToHtml = path.resolve(__dirname, '../renderer/index.html');
+    mainWindow.loadFile(pathToHtml);
+  } else {
+    mainWindow.loadURL('http://localhost:3000');
+  }
 
-  // TODO add loading from html file in prod
-  mainWindow.loadURL('http://localhost:3000');
+  mainWindow.maximize();
 
   mainWindow.on('ready-to-show', () => {
     mainWindow.show();

@@ -3,24 +3,29 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 const ReactRefreshTypeScript = require('react-refresh-typescript');
 
+const isDevelopment = process.env.NODE_ENV !== 'production';
+
 module.exports = {
-  mode: 'development',
+  mode: process.env.NODE_ENV,
   resolve: {
     extensions: ['.tsx', '.ts', '.js'],
     alias: {
       assets: path.join(__dirname, 'assets'),
     },
   },
+  optimization: {
+    nodeEnv: isDevelopment ? 'development' : 'production',
+  },
   entry: path.resolve(__dirname, 'src', 'renderer', 'index.tsx'),
   output: {
-    filename: 'index.[contenthash].js',
+    filename: 'index.js',
     clean: true,
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, 'dist', 'renderer'),
   },
   devtool: 'source-map',
   devServer: {
     static: {
-      directory: path.resolve(__dirname, 'dist'),
+      directory: path.resolve(__dirname, 'dist', 'renderer'),
     },
     port: 3000,
     // Open: true,
@@ -32,8 +37,8 @@ module.exports = {
     rules: [
       {
         test: /\.ts$/,
-        exclude: /node_modules/,
         use: 'ts-loader',
+        exclude: /node_modules/,
       },
       {
         test: /\.[jt]sx$/,
@@ -44,9 +49,11 @@ module.exports = {
             options: {
               getCustomTransformers: () => ({
                 // eslint-disable-next-line new-cap
-                before: [ReactRefreshTypeScript()],
+                before: [isDevelopment && ReactRefreshTypeScript()].filter(
+                  Boolean
+                ),
               }),
-              transpileOnly: true,
+              transpileOnly: isDevelopment,
             },
           },
         ],
@@ -74,6 +81,6 @@ module.exports = {
       filename: 'index.html',
       template: 'src/renderer/index.html',
     }),
-    new ReactRefreshWebpackPlugin(),
-  ],
+    isDevelopment && new ReactRefreshWebpackPlugin(),
+  ].filter(Boolean),
 };
