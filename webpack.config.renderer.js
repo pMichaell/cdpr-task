@@ -20,12 +20,12 @@ module.exports = {
   output: {
     filename: 'index.js',
     clean: true,
-    path: path.resolve(__dirname, 'dist', 'renderer'),
+    path: path.resolve(__dirname, 'build', 'renderer'),
   },
   devtool: 'source-map',
   devServer: {
     static: {
-      directory: path.resolve(__dirname, 'dist', 'renderer'),
+      directory: path.resolve(__dirname, 'build', 'renderer'),
     },
     port: 3000,
     // Open: true,
