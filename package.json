@@ -1,8 +1,8 @@
 {
   "name": "cdpr-task",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "author": "Michal Pawlowicz",
+  "license": "ISC",
   "scripts": {
     "lint": "eslint --fix --ext .js,.tsx,.ts .",
     "start-electronmon": "electronmon ./build/main/main.js",
@@ -12,13 +12,9 @@
     "delayed-start-main": "node -e \"setTimeout(() => process.exit(0), 3000)\" && npm run start-main",
     "build-renderer-prod": "cross-env NODE_ENV=production webpack --config webpack.config.renderer.js",
     "build-main-prod": "cross-env NODE_ENV=production webpack --config webpack.config.main.js",
-
     "build": "npm run build-main-prod & npm run build-renderer-prod",
     "dev": "concurrently -k \"npm:start-renderer\" \"npm:delayed-start-main\""
   },
-  "keywords": [],
-  "author": "Michal Pawlowicz",
-  "license": "ISC",
   "devDependencies": {
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.8",
     "@types/react": "^18.0.24",
@@ -29,7 +25,6 @@
     "cross-env": "^7.0.3",
     "css-loader": "^6.7.1",
     "electron": "^21.2.0",
-    "electron-builder": "^23.6.0",
     "electronmon": "^2.0.2",
     "eslint": "^8.26.0",
     "eslint-config-prettier": "^8.5.0",
@@ -57,12 +52,6 @@
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.4.2",
     "styled-components": "^5.3.6"
-  },
-  "build": {
-    "appId": "cdprTask",
-    "win": {
-      "category": "portable"
-    }
   },
   "prettier": {
     "singleQuote": true,
