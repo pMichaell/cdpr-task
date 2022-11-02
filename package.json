@@ -1,6 +1,7 @@
 {
   "name": "cdpr-task",
   "version": "1.0.0",
+  "main": "build/main/main.js",
   "author": "Michal Pawlowicz",
   "license": "ISC",
   "scripts": {
@@ -13,6 +14,7 @@
     "build-renderer-prod": "cross-env NODE_ENV=production webpack --config webpack.config.renderer.js",
     "build-main-prod": "cross-env NODE_ENV=production webpack --config webpack.config.main.js",
     "build": "npm run build-main-prod & npm run build-renderer-prod",
+    "dist": "npm run build && npx electron-packager . cdpr-task --platform=win32 --out=dist",
     "dev": "concurrently -k \"npm:start-renderer\" \"npm:delayed-start-main\""
   },
   "devDependencies": {
@@ -25,6 +27,7 @@
     "cross-env": "^7.0.3",
     "css-loader": "^6.7.1",
     "electron": "^21.2.0",
+    "electron-packager": "^15.5.1",
     "electronmon": "^2.0.2",
     "eslint": "^8.26.0",
     "eslint-config-prettier": "^8.5.0",
