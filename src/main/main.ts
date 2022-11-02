@@ -2,6 +2,7 @@ import { app, BrowserWindow, ipcMain, shell } from 'electron';
 import * as path from 'path';
 import * as os from 'os';
 import { retrieveDirectoryContents } from './handlers';
+import type { FrameEvent } from '../types';
 
 function createWindow() {
   const mainWindow = new BrowserWindow({
@@ -75,8 +76,6 @@ ipcMain.on('directory-contents', async (event, args: string[]) => {
 ipcMain.on('file-handle', async (_, args: string[]) => {
   await shell.openPath(path.join(...args));
 });
-
-export type FrameEvent = 'close' | 'minimize' | 'maximize';
 
 ipcMain.on('frame-events', async (event, args: FrameEvent[]) => {
   const mainWindow = BrowserWindow.getAllWindows()[0];

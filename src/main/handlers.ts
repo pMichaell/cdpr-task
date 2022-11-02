@@ -1,6 +1,6 @@
-import type { DirectoryItemType } from '../globals';
 import { readdir, stat } from 'node:fs/promises';
 import path from 'path';
+import type { DirectoryItemType } from '../types';
 
 const getFileInfo = async (
   receivedPath: string,

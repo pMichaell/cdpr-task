@@ -4,18 +4,18 @@ import useIpc from '../../hooks/useIpc';
 import { PathContext } from '../../context/PathContext';
 import { useNavigate } from 'react-router-dom';
 import useDirContents from '../../hooks/useDirContents';
-import type { DirectoryItemType } from '../../../globals';
 import DirectoryItem from './directoryContent/DirectoryItem';
+import type { DirectoryItemType } from '../../../types';
 
 const Canvas = () => {
   const { currentPath } = useContext(PathContext);
   const dirContents = useDirContents(currentPath ?? 'homedir');
   const [, openFile] = useIpc('file-handle');
-  const navigate = useNavigate();
+  const changeDirectory = useNavigate();
 
   const onDirectoryClick = (directoryName: string) => {
     if (currentPath) {
-      navigate(currentPath?.concat('/', directoryName));
+      changeDirectory(currentPath?.concat('/', directoryName));
     }
   };
 

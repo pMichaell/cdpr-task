@@ -1,6 +1,6 @@
-import useIpc from './useIpc';
 import { useEffect } from 'react';
-import type { DirectoryItemType } from '../../globals';
+import type { DirectoryItemType } from '../../types';
+import useIpc from './useIpc';
 
 const useDirContents = (currentPath: string) => {
   const [dirContents, getDirContents] =

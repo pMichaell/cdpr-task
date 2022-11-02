@@ -13,4 +13,3 @@ declare global {
   }
 }
 
-export type DirectoryItemType = { name: string; type: 'dir' | 'file' };
