@@ -1,8 +1,8 @@
-import classes from './SideMenu.module.css';
 import { useContext } from 'react';
-import { PathContext } from '../../context/PathContext';
-import clsx from 'clsx';
 import { useNavigate } from 'react-router-dom';
+import clsx from 'clsx';
+import { PathContext } from '../../context/PathContext';
+import classes from './SideMenu.module.css';
 
 const SideMenu = () => {
   const { currentPath } = useContext(PathContext);

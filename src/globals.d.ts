@@ -1,6 +1,7 @@
 import type { Channels } from './main/preload';
 
 declare global {
+  // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
   interface Window {
     api: {
       sendMessage(channel: Channels, args: string[]): void;
@@ -12,4 +13,3 @@ declare global {
     };
   }
 }
-

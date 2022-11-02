@@ -1,7 +1,7 @@
-import classes from './Header.module.css';
 import { useNavigate } from 'react-router-dom';
-import useIpc from '../../hooks/useIpc';
 import type { FrameEvent } from '../../../main/main';
+import useIpc from '../../hooks/useIpc';
+import classes from './Header.module.css';
 
 const Header = () => {
   const navigate = useNavigate();

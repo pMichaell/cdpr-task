@@ -1,11 +1,11 @@
-import classes from './Canvas.module.css';
 import { useContext } from 'react';
-import useIpc from '../../hooks/useIpc';
-import { PathContext } from '../../context/PathContext';
 import { useNavigate } from 'react-router-dom';
-import useDirContents from '../../hooks/useDirContents';
-import DirectoryItem from './directoryContent/DirectoryItem';
 import type { DirectoryItemType } from '../../../types';
+import { PathContext } from '../../context/PathContext';
+import useDirContents from '../../hooks/useDirContents';
+import useIpc from '../../hooks/useIpc';
+import DirectoryItem from './directoryContent/DirectoryItem';
+import classes from './Canvas.module.css';
 
 const Canvas = () => {
   const { currentPath } = useContext(PathContext);

@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
 import { createContext, useEffect } from 'react';
-import useIpc from '../hooks/useIpc';
 import { useLocation, useNavigate } from 'react-router-dom';
+import useIpc from '../hooks/useIpc';
 
 type PathContextType = {
   currentPath?: string;

@@ -1,7 +1,7 @@
-import classes from './DirectoryItem.module.css';
-import type { DirectoryItemType } from '../../../../globals';
-import file from 'assets/file.svg';
 import directory from 'assets/directory.svg';
+import file from 'assets/file.svg';
+import type { DirectoryItemType } from '../../../../types';
+import classes from './DirectoryItem.module.css';
 
 const DirectoryItem = ({
   name,
@@ -13,7 +13,7 @@ const DirectoryItem = ({
       <div className={classes.imgContainer}>
         <img
           src={type === 'file' ? file : directory}
-          alt={`${name}${type}`}
+          alt={`${name}+${type}`}
           className={classes.img}
         />
       </div>

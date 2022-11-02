@@ -5,7 +5,7 @@
   "author": "Michal Pawlowicz",
   "license": "ISC",
   "scripts": {
-    "lint": "eslint --fix --ext .js,.tsx,.ts .",
+    "lint": "eslint --fix src --ext .tsx,.ts .",
     "start-electronmon": "electronmon ./build/main/main.js",
     "build-watch-main": "cross-env NODE_ENV=development webpack --watch --config webpack.config.main.js",
     "start-renderer": "cross-env NODE_ENV=development webpack serve --config webpack.config.renderer.js",

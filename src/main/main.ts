@@ -1,8 +1,8 @@
 import { app, BrowserWindow, ipcMain, shell } from 'electron';
-import * as path from 'path';
 import * as os from 'os';
-import { retrieveDirectoryContents } from './handlers';
+import * as path from 'path';
 import type { FrameEvent } from '../types';
+import { retrieveDirectoryContents } from './handlers';
 
 function createWindow() {
   const mainWindow = new BrowserWindow({
