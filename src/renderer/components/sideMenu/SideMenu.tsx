@@ -6,10 +6,10 @@ import classes from './SideMenu.module.css';
 
 const SideMenu = () => {
   const { currentPath } = useContext(PathContext);
-  const navigate = useNavigate();
+  const changeDirectory = useNavigate();
 
   const onClick = (destination: string) => {
-    navigate(destination);
+    changeDirectory(destination);
   };
 
   const isActive = (location: string) => {

@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import type { FrameEvent } from '../../../main/main';
+import type { FrameEvent } from '../../../types';
 import useIpc from '../../hooks/useIpc';
 import classes from './Header.module.css';
 
